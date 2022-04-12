@@ -25,13 +25,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
     registry.addEndpoint("/gs-guide-websocket")
-        .setHandshakeHandler(new CustomHandshakeHandler()).withSockJS();
+//        .setHandshakeHandler(new CustomHandshakeHandler())//
+        .withSockJS();
   }
 
   @EventListener
   public void handleDisconnectEvent(SessionDisconnectEvent event) {
     //获取session挂关闭事件,关闭listener
-    System.out.println("close session: " + event.getUser().getName());
+//    System.out.println("close session: " + event.getUser().getName());
 
   }
 
@@ -40,7 +41,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     GenericMessage message = (GenericMessage) event.getMessage();
     MessageHeaders headers = message.getHeaders();
     Object simpSessionId = headers.get("simpSessionId");
-    System.out.println("open sessionId: " + event.getUser().getName());
+    System.out.println(simpSessionId);
+//    System.out.println("open sessionId: " + event.getUser().getName());
     //    StompHeaderAccessor sha1 = StompHeaderAccessor.wrap(message);
     //    String userId = sha1.getNativeHeader("userId").get(0);
     //    System.out.println(userId);
